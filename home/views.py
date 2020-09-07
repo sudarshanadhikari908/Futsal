@@ -1,5 +1,15 @@
 from django.shortcuts import render,HttpResponse
+from django.contrib import messages
 
 # Create your views here.
-def home(index):
-    return HttpResponse("I am from home")
+def home(request):
+    return render(request, "home/home.html")
+
+
+
+def contact(request):
+    messages.success(request, 'Welcome To Contact')
+    
+        
+
+    return render(request, 'home/contact.html')
