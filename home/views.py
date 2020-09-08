@@ -18,3 +18,7 @@ def contact(request):
        contact = Contact(name = name, email=email, phone=phone, content=content)
        contact.save()
     return render(request, 'home/contact.html')
+
+def about(request):
+
+    return render(request, 'home/about.html')
