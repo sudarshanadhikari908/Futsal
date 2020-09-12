@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home
 {% endblock title %}
+{% load static %}
  
 
  {% block body %}
@@ -16,10 +17,10 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="..." class="d-block w-100" alt="...">
+      <img class="d-block w-100 h-50" src="/media/img/1.jpeg" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img src="..." class="d-block w-100" alt="...">
+      <img src='{% static "home/messi.jpg" %}'class="d-block w-100" alt="...">
     </div>
     <div class="carousel-item">
       <img src="..." class="d-block w-100" alt="...">
