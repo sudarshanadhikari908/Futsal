@@ -1,10 +1,20 @@
 from django.shortcuts import render,HttpResponse
 from django.contrib import messages
-from .models import Contact
+from .models import Contact, Product
+from math import ceil
 
 # Create your views here.
 def home(request):
-    return render(request, "home/home.html")
+    allProds = []
+    catprods = Product.objects.values('category', 'id')
+    cats = {item['category'] for item in catprods}
+    for cat in cats:
+        prod = Product.objects.filter(category=cat)
+        n = len(prod)
+        nSlides = n // 4 + ceil((n / 4) - (n // 4))
+        allProds.append([prod, range(1, nSlides), nSlides])
+    params = {'allProds':allProds}
+    return render(request, 'home/home.html', params)
 
 
 
