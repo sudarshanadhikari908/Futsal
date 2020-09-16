@@ -1,7 +1,14 @@
-from django.shortcuts import render,HttpResponse
 from django.contrib import messages
-from .models import Contact, Product
-from math import ceil
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView
+from django.utils import timezone
+from .models import (
+    Contact,
+    Product,
+    Order,
+    OrderItem
+)
+
 
 # Create your views here.
 def home(request):
@@ -13,9 +20,8 @@ def home(request):
         n = len(prod)
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
-    params = {'allProds':allProds}
+    params = {'allProds': allProds}
     return render(request, 'home/home.html', params)
-
 
 
 def contact(request):
@@ -25,18 +31,21 @@ def contact(request):
         email = request.POST['email']
         phone = request.POST['phone']
         content = request.POST['content']
-        if len(name) < 3 or len(email)<6 or len(phone)<10 or len(content)<10:
-           messages.error(request, "Please fill the form correctly")
+        if len(name) < 3 or len(email) < 6 or len(phone) < 10 or len(content) < 10:
+            messages.error(request, "Please fill the form correctly")
         else:
-            contact = Contact(name = name, email=email, phone=phone, content=content)
+            contact = Contact(name=name, email=email,
+                              phone=phone, content=content)
             contact.save()
             messages.success(request, "Please fill the form correctly")
-        
+
     return render(request, 'home/contact.html')
+
 
 def about(request):
 
     return render(request, 'home/about.html')
+
 
 def login(request):
     return render(request, 'home/login.html')

@@ -17,21 +17,8 @@ class Contact(models.Model):
         return self.name
 
 
-# Assigning key value
-CATEGORY = (
-    ('S', 'Shirt'),
-    ('SP', 'Sport Wear'),
-    ('OW', 'Out Wear')
-)
-
-LABEL = (
-    ('N', 'New'),
-    ('BS', 'Best Seller')
-)
-
-
 class Product(models.Model):
-    id = models.AutoField(primary_key=True)
+
     product_name = models.CharField(max_length=50)
     category = models.CharField(max_length=50)
     discount_price = models.FloatField(blank=True, null=True)
@@ -43,27 +30,6 @@ class Product(models.Model):
 
     def __str__(self):
         return self.product_name
-
-    # get_absolute_url will return url from product
-
-    def get_absolute_url(self):
-        return reverse("core:product", kwargs={
-            "pk": self.pk
-
-        })
-    # get_add_to_cart_url will return url to function add item to cart in views.py file
-
-    def get_add_to_cart_url(self):
-        return reverse("core:add-to-cart", kwargs={
-            "pk": self.pk
-        })
-    # get_remove_from_cart_url will return url to function remove item from cart in views.py file
-
-    def get_remove_from_cart_url(self):
-        return reverse("core:remove-from-cart", kwargs={
-            "pk": self.pk
-        })
-# OrderItem stores data of the product you want to order and the amount of the product
 
 
 class OrderItem(models.Model):
